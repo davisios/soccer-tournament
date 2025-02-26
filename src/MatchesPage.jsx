@@ -32,22 +32,22 @@ export default function MatchesPage() {
               <thead>
                 <tr>
                   <th className='p-2'>Equipo A</th>
-                  <th className='p-2'>Resultado</th>
+                  <th className='p-2'></th>
                   <th className='p-2'>Equipo B</th>
                 </tr>
               </thead>
               <tbody>
                 {groupedMatches[date].map((match, matchIndex) => (
                   <React.Fragment key={matchIndex}>
-                    <tr>
-                      <td className='p-2'>
+                    <tr className={matchIndex===groupedMatches[date].length-1 ? null :'border-b border-gray-200'}>
+                      <td className='p-2 flex flex-col'>
                         <div className='flex items-center justify-center pb-[6px]'>
                           <img
                             src={getTeamLogo(match.teamA)}
                             alt={match.teamA}
                             className='w-8 h-8 mr-2'
                           />
-                          {match.teamA}
+                          <strong>{match.teamA}</strong>
                         </div>
                         {match.scorersA.length > 0 && (
                           <div>
@@ -60,17 +60,17 @@ export default function MatchesPage() {
                           </div>
                         )}
                       </td>
-                      <td className='p-2'>
+                      <td className='p-2 '>
                         {match.scoreA} - {match.scoreB}
                       </td>
-                      <td className='p-2'>
+                      <td className='p-2 flex flex-col'>
                         <div className='flex items-center justify-center pb-[6px]'>
                           <img
                             src={getTeamLogo(match.teamB)}
                             alt={match.teamB}
                             className='w-8 h-8 mr-2'
                           />
-                          {match.teamB}
+                          <strong>{match.teamB}</strong>
                         </div>
                         {match.scorersB.length > 0 && (
                           <div>
