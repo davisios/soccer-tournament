@@ -3,26 +3,55 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import TournamentPage from './TournamentPage.jsx';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
+import MatchesPage from './MatchesPage.jsx';
 
 function MainLayout({ children }) {
   return (
-    <div className='flex flex-col h-screen w-screen'>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+    <div className="flex flex-col h-screen w-screen">
+      <AppBar position="sticky" sx={{ bgcolor: "#333" }}>
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: "bold", letterSpacing: 1 }}>
             Soccer Tournament
           </Typography>
-          <Button color="inherit" component={Link} to="/">
-            Tabla
-          </Button>
-          <Button color="inherit" component={Link} to="/matches">
-            Partidos
-          </Button>
+
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <Button
+              color="inherit"
+              component={Link}
+              to="/"
+              sx={{
+                fontWeight: 600,
+                '&:hover': {
+                  bgcolor: '#444',  
+                  transform: 'scale(1.05)', 
+                  transition: 'transform 0.3s ease, bgcolor 0.3s ease'
+                },
+              }}
+            >
+              Tabla
+            </Button>
+            <Button
+              color="inherit"
+              component={Link}
+              to="/matches"
+              sx={{
+                fontWeight: 600,
+                '&:hover': {
+                  bgcolor: '#444',  
+                  transform: 'scale(1.05)', 
+                  transition: 'transform 0.3s ease, bgcolor 0.3s ease' 
+                },
+              }}
+            >
+              Partidos
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
-      <div className="p-6">{children}</div>
+
+      <div className="flex-1 p-6 bg-gray-50">{children}</div>
     </div>
   );
 }
@@ -43,7 +72,7 @@ createRoot(document.getElementById('root')).render(
           path="/matches"
           element={
             <MainLayout>
-              {/* <MatchesPage /> */}
+              <MatchesPage /> 
             </MainLayout>
           }
         />
