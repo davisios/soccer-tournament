@@ -1,12 +1,5 @@
 import { Card, CardContent } from "@mui/material";
-import { teamaLogo, teambLogo, teamcLogo, teamdLogo } from './assets/images';
-
-const standings = [
-  { team: "Team A", logo: teamaLogo, points: 9, G: 3, E: 0, P: 1, GF: 10, GC: 5, GD: 5 },
-  { team: "Team B", logo: teambLogo, points: 6, G: 2, E: 0, P: 2, GF: 8, GC: 7, GD: 1 },
-  { team: "Team C", logo: teamcLogo, points: 3, G: 1, E: 0, P: 3, GF: 4, GC: 9, GD: -5 },
-  { team: "Team D", logo: teamdLogo, points: 1, G: 0, E: 1, P: 3, GF: 3, GC: 12, GD: -9 },
-];
+import data from './assets/data/data';
 
 // Glosario de términos
 const glosario = {
@@ -21,6 +14,14 @@ const glosario = {
 };
 
 export default function TournamentPage() {
+  const standings = data.standings;
+
+  // Function to get the logo for a team from the teams array
+  const getTeamLogo = (teamName) => {
+    const team = data.teams[teamName];
+    return team ? team.logo : ''; // Return the logo or an empty string if no logo is found
+  };
+
   return (
     <div>
       <div className="p-6 space-y-6">
@@ -45,7 +46,7 @@ export default function TournamentPage() {
                 {standings.map((team, index) => (
                   <tr key={index} className="border-b">
                     <td className="p-2 flex items-center justify-center">
-                      <img src={team.logo} alt={`${team.team} logo`} className="w-8 h-8 mr-2" />
+                      <img src={getTeamLogo(team.team)} alt={`${team.team} logo`} className="w-8 h-8 mr-2" />
                       {team.team}
                     </td>
                     <td className="p-2">{team.points}</td>
