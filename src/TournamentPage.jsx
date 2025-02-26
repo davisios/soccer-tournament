@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@mui/material";
+import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Box } from "@mui/material";
 import data from './assets/data/data';
 
 // Glosario de términos
@@ -16,67 +16,74 @@ const glosario = {
 export default function TournamentPage() {
   const standings = data.standings;
 
-  // Function to get the logo for a team from the teams array
   const getTeamLogo = (teamName) => {
     const team = data.teams[teamName];
-    return team ? team.logo : ''; // Return the logo or an empty string if no logo is found
+    return team ? team.logo : ''; 
   };
 
   return (
-    <div>
-      <div className="p-6 space-y-6">
-        {/* Standings Table */}
-        <Card variant="outlined">
-          <CardContent>
-            <h2 className="text-xl font-bold text-center mb-4">Posiciones</h2>
-            <table className="w-full text-center">
-              <thead>
-                <tr className="border-b">
-                  <th className="p-2">Equipo</th>
-                  <th className="p-2">Puntos</th>
-                  <th className="p-2">G</th>
-                  <th className="p-2">E</th>
-                  <th className="p-2">P</th>
-                  <th className="p-2">GF</th>
-                  <th className="p-2">GC</th>
-                  <th className="p-2">GD</th>
-                </tr>
-              </thead>
-              <tbody>
+    <div className="p-6 space-y-6">
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h6" align="center" className="mb-4">
+            Posiciones
+          </Typography>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">Equipo</TableCell>
+                  <TableCell align="center">Puntos</TableCell>
+                  <TableCell align="center">G</TableCell>
+                  <TableCell align="center">E</TableCell>
+                  <TableCell align="center">P</TableCell>
+                  <TableCell align="center">GF</TableCell>
+                  <TableCell align="center">GC</TableCell>
+                  <TableCell align="center">GD</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
                 {standings.map((team, index) => (
-                  <tr key={index} className="border-b">
-                    <td className="p-2 flex items-center justify-center">
-                      <img src={getTeamLogo(team.team)} alt={`${team.team} logo`} className="w-8 h-8 mr-2" />
-                      {team.team}
-                    </td>
-                    <td className="p-2">{team.points}</td>
-                    <td className="p-2">{team.G}</td>
-                    <td className="p-2">{team.E}</td>
-                    <td className="p-2">{team.P}</td>
-                    <td className="p-2">{team.GF}</td>
-                    <td className="p-2">{team.GC}</td>
-                    <td className="p-2">{team.GD}</td>
-                  </tr>
+                  <TableRow key={index}>
+                    <TableCell align="center">
+                      <Box display="flex" justifyContent="center" alignItems="center">
+                        <img
+                          src={getTeamLogo(team.team)}
+                          alt={`${team.team} logo`}
+                          className="w-8 h-8 mr-2"
+                        />
+                        {team.team}
+                      </Box>
+                    </TableCell>
+                    <TableCell align="center">{team.points}</TableCell>
+                    <TableCell align="center">{team.G}</TableCell>
+                    <TableCell align="center">{team.E}</TableCell>
+                    <TableCell align="center">{team.P}</TableCell>
+                    <TableCell align="center">{team.GF}</TableCell>
+                    <TableCell align="center">{team.GC}</TableCell>
+                    <TableCell align="center">{team.GD}</TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
-          </CardContent>
-        </Card>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </CardContent>
+      </Card>
 
-        {/* Glosario */}
-        <Card variant="outlined" className="mt-6">
-          <CardContent>
-            <h3 className="text-lg font-bold mb-4">Glosario de Términos</h3>
-            <ul className="list-disc pl-5">
-              {Object.entries(glosario).map(([term, definition], index) => (
-                <li key={index} className="mb-2">
-                  <strong>{term}:</strong> {definition}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-      </div>
+      <Card variant="outlined" className="mt-6">
+        <CardContent>
+          <Typography variant="h6" className="mb-4">
+            Glosario de Términos
+          </Typography>
+          <ul className="list-disc pl-5">
+            {Object.entries(glosario).map(([term, definition], index) => (
+              <li key={index} className="mb-2">
+                <strong>{term}:</strong> {definition}
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
     </div>
   );
 }
