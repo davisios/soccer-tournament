@@ -1,5 +1,6 @@
-import { Card, CardContent } from "@mui/material";
-import data from './assets/data/data'; // Import your data
+import { Card, CardContent, Typography } from '@mui/material';
+import data from './assets/data/data'; 
+import React from 'react';
 
 export default function MatchesPage() {
   const matches = data.matches;
@@ -7,51 +8,83 @@ export default function MatchesPage() {
   const groupedMatches = matches.reduce((acc, match) => {
     const { date } = match;
     if (!acc[date]) {
-      acc[date] = []; 
+      acc[date] = [];
     }
-    acc[date].push(match); 
+    acc[date].push(match);
     return acc;
   }, {});
 
   const getTeamLogo = (teamName) => {
     const team = data.teams[teamName];
-    return team ? team.logo : ''; 
+    return team ? team.logo : '';
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className='md:p-6 xl:p-6 space-y-6'>
       {Object.keys(groupedMatches).map((date, index) => (
-        <Card key={index} variant="outlined" className="mb-6">
+        <Card key={index} variant='outlined' className='mb-6'>
           <CardContent>
-            <h2 className="text-xl font-bold text-center mb-4">{`Partidos - ${date}`}</h2>
+            <Typography variant='h6' className='text-center mb-4'>
+              {`Partidos - ${date}`}
+            </Typography>
 
-            <table className="w-full text-center">
+            <table className='w-full table-auto text-center'>
               <thead>
-                <tr className="border-b">
-                  <th className="p-2">Equipo A</th>
-                  <th className="p-2">Resultado</th>
-                  <th className="p-2">Equipo B</th>
-                  <th className="p-2">Goleadores A</th>
-                  <th className="p-2">Goleadores B</th>
+                <tr>
+                  <th className='p-2'>Equipo A</th>
+                  <th className='p-2'>Resultado</th>
+                  <th className='p-2'>Equipo B</th>
                 </tr>
               </thead>
               <tbody>
-                {groupedMatches[date].map((match, index) => (
-                  <tr key={index} className="border-b">
-                    <td className="p-2">
-                      <img src={getTeamLogo(match.teamA)} alt={match.teamA} className="w-8 h-8 mr-2 inline-block" />
-                      {match.teamA}
-                    </td>
-                    <td className="p-2">
-                      {match.scoreA} - {match.scoreB}
-                    </td>
-                    <td className="p-2">
-                      <img src={getTeamLogo(match.teamB)} alt={match.teamB} className="w-8 h-8 mr-2 inline-block" />
-                      {match.teamB}
-                    </td>
-                    <td className="p-2">{match.scorersA.join(", ")}</td>
-                    <td className="p-2">{match.scorersB.join(", ")}</td>
-                  </tr>
+                {groupedMatches[date].map((match, matchIndex) => (
+                  <React.Fragment key={matchIndex}>
+                    <tr>
+                      <td className='p-2'>
+                        <div className='flex items-center justify-center pb-[6px]'>
+                          <img
+                            src={getTeamLogo(match.teamA)}
+                            alt={match.teamA}
+                            className='w-8 h-8 mr-2'
+                          />
+                          {match.teamA}
+                        </div>
+                        {match.scorersA.length > 0 && (
+                          <div>
+                            <strong>Goals:</strong>
+                            <ul className='list-disc pl-4'>
+                              {match.scorersA.map((scorer, index) => (
+                                <li key={index}>{scorer}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </td>
+                      <td className='p-2'>
+                        {match.scoreA} - {match.scoreB}
+                      </td>
+                      <td className='p-2'>
+                        <div className='flex items-center justify-center pb-[6px]'>
+                          <img
+                            src={getTeamLogo(match.teamB)}
+                            alt={match.teamB}
+                            className='w-8 h-8 mr-2'
+                          />
+                          {match.teamB}
+                        </div>
+                        {match.scorersB.length > 0 && (
+                          <div>
+                            <strong>Goals:</strong>
+                            <ul className='list-disc pl-4'>
+                              {match.scorersB.map((scorer, index) => (
+                                <li key={index}>{scorer}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  </React.Fragment>
                 ))}
               </tbody>
             </table>
