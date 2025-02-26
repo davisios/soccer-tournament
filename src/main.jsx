@@ -12,7 +12,15 @@ function MainLayout({ children }) {
     <div className="flex flex-col h-screen w-screen">
       <AppBar position="sticky" sx={{ bgcolor: "#333" }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: "bold", letterSpacing: 1 }}>
+          <Typography
+            variant="h6"
+            sx={{
+              flexGrow: 1,
+              fontWeight: "bold",
+              letterSpacing: 1,
+              fontSize: { xs: "1.2rem", sm: "1.5rem" }, // Responsive font size
+            }}
+          >
             Soccer Tournament
           </Typography>
 
@@ -23,6 +31,7 @@ function MainLayout({ children }) {
               to="/"
               sx={{
                 fontWeight: 600,
+                fontSize: { xs: "0.9rem", sm: "1rem" }, // Adjust button font size
                 '&:hover': {
                   bgcolor: '#444',  
                   transform: 'scale(1.05)', 
@@ -38,6 +47,7 @@ function MainLayout({ children }) {
               to="/matches"
               sx={{
                 fontWeight: 600,
+                fontSize: { xs: "0.9rem", sm: "1rem" }, // Adjust button font size
                 '&:hover': {
                   bgcolor: '#444',  
                   transform: 'scale(1.05)', 
@@ -51,7 +61,7 @@ function MainLayout({ children }) {
         </Toolbar>
       </AppBar>
 
-      <div className="flex-1 p-6 bg-gray-50">{children}</div>
+      <div className="flex-1 md:p-6 lg:p-6 xl:p-6 bg-gray-50">{children}</div>
     </div>
   );
 }
